@@ -1,5 +1,8 @@
 <template>
-  <div :class="[task.reminder ? 'reminder' : '', 'task']">
+  <div
+    @dblclick="toggleReminder(task.id)"
+    :class="[task.reminder ? 'reminder' : '', 'task']"
+  >
     <h3>
       {{ task.text }}
       <i @click="onDelete(task.id)" class="fas fa-times"></i>
@@ -18,6 +21,9 @@ export default {
     onDelete(id) {
       this.$emit("delete-task", id);
     },
+    toggleReminder(id) {
+      this.$emit("toggle-reminder");
+    },
   },
 };
 </script>
@@ -28,6 +34,13 @@ export default {
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .task.reminder {
   border-left: 5px solid green;
